@@ -1,0 +1,9 @@
+{
+	"name": "reatailadf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f2a1d2fd-6fb3-471f-bd7d-8a7013d4a0c2",
+		"tenantId": "5186f2b9-1c44-4ed0-b206-a41f932f9776"
+	}
+}
