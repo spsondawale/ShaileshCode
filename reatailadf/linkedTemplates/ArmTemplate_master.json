@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_copy_file'"
 		},
+		"ls_databricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks'"
+		},
 		"ls_copy_file_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0904-121411-b30w5hp3"
 		},
 		"containerUri": {
 			"type": "string",
@@ -45,8 +53,14 @@
 					"ls_copy_file_accountKey": {
 						"value": "[parameters('ls_copy_file_accountKey')]"
 					},
+					"ls_databricks_accessToken": {
+						"value": "[parameters('ls_databricks_accessToken')]"
+					},
 					"ls_copy_file_properties_typeProperties_url": {
 						"value": "[parameters('ls_copy_file_properties_typeProperties_url')]"
+					},
+					"ls_databricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_properties_typeProperties_existingClusterId')]"
 					}
 				}
 			},

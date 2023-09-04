@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_copy_file'"
 		},
+		"ls_databricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks'"
+		},
 		"ls_copy_file_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0904-121411-b30w5hp3"
 		}
 	},
 	"variables": {
@@ -36,6 +44,85 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_databricks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-406968768180252.12.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('ls_databricks_accessToken')]"
+					},
+					"existingClusterId": "[parameters('ls_databricks_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Databricks-ws')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/formula1/Training/Project Architecture/Ingestions_to_Processed/1. Ingest Circuit File",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@variables('v_data_source')",
+									"type": "Expression"
+								},
+								"p_data_file": {
+									"value": "@formatDateTime(pipeline().parameters.v_window_end_date,'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"v_window_end_date": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"v_data_source": {
+						"type": "String",
+						"defaultValue": "Eargast_API"
+					},
+					"v_data_file": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_databricks')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_copy_file')]",
