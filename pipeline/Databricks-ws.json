@@ -15,7 +15,17 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/formula1/Training/Ingestions/1.Ingestion_Circuit_File_test"
+					"notebookPath": "/formula1/Training/Project Architecture/Ingestions_to_Processed/1. Ingest Circuit File",
+					"baseParameters": {
+						"p_data_source": {
+							"value": "@variables('v_data_source')",
+							"type": "Expression"
+						},
+						"p_data_file": {
+							"value": "@formatDateTime(pipeline().parameters.v_window_end_date,'yyyy-MM-dd')",
+							"type": "Expression"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_databricks",
@@ -23,6 +33,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"v_window_end_date": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_data_source": {
+				"type": "String",
+				"defaultValue": "Eargast_API"
+			},
+			"v_data_file": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
