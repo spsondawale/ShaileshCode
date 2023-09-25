@@ -11,11 +11,20 @@
 		"ls_databricks_accessToken": {
 			"value": ""
 		},
+		"ls_file_copy_connectionString": {
+			"value": ""
+		},
+		"ls_file_copy_adls_accountKey": {
+			"value": ""
+		},
 		"ls_copy_file_properties_typeProperties_url": {
 			"value": "https://mangliretail.dfs.core.windows.net/"
 		},
 		"ls_databricks_properties_typeProperties_existingClusterId": {
 			"value": "0904-121411-b30w5hp3"
+		},
+		"ls_file_copy_adls_properties_typeProperties_url": {
+			"value": "https://mangliretail.dfs.core.windows.net/"
 		}
 	}
 }
