@@ -1,0 +1,22 @@
+{
+	"name": "ds_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_file_copy",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "incremental_load_data.zip",
+				"container": "staging"
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Fastest"
+			}
+		}
+	}
+}
