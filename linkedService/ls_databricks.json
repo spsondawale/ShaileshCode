@@ -1,0 +1,13 @@
+{
+	"name": "ls_databricks",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-809977468485330.10.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/7f4afb0f-2f8f-4fa2-b192-c7f5f08b1eae/resourceGroups/databricks_rg/providers/Microsoft.Databricks/workspaces/retaildatabricks",
+			"existingClusterId": "prod_retail"
+		}
+	}
+}
