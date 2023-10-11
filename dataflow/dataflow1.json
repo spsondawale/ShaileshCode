@@ -1,0 +1,153 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_SQL",
+						"type": "DatasetReference"
+					},
+					"name": "file"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_SQL",
+						"type": "DatasetReference"
+					},
+					"name": "SQLDB"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_SQL",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_SQL",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddColumn"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          surrogate_key as integer,",
+				"          emp_id as integer,",
+				"          name as string,",
+				"          gender as string,",
+				"          city as string,",
+				"          isactive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> file",
+				"source(output(",
+				"          surrogate_key as integer,",
+				"          emp_id as integer,",
+				"          name as string,",
+				"          gender as string,",
+				"          city as string,",
+				"          isactive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> SQLDB",
+				"file derive({IS _Active} = 1) ~> AddColumn",
+				"SQLDB select(mapColumn(",
+				"          SQL_surrogate_key = surrogate_key,",
+				"          SQL_emp_id = emp_id,",
+				"          SQL_name = name,",
+				"          SQL_gender = gender,",
+				"          SQL_city = city,",
+				"          SQL_isactive = isactive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"file, select1 lookup(emp_id == SQL_emp_id,",
+				"     multiple: true,",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 filter(!isNull(emp_id)) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          SQL_surrogate_key,",
+				"          SQL_emp_id,",
+				"          SQL_name,",
+				"          SQL_gender,",
+				"          SQL_city,",
+				"          SQL_isactive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 derive(SQL_isactive = 0) ~> derivedColumn1",
+				"derivedColumn1 alterRow(updateIf(1 == 1)) ~> alterRow1",
+				"AddColumn sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 2,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          emp_id,",
+				"          name,",
+				"          gender,",
+				"          city,",
+				"          {IS _Active}",
+				"     )) ~> sink1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          surrogate_key = SQL_surrogate_key,",
+				"          SQL_emp_id,",
+				"          SQL_name,",
+				"          SQL_gender,",
+				"          SQL_city,",
+				"          SQL_isactive",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}
