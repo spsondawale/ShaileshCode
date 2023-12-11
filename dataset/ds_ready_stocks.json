@@ -1,0 +1,23 @@
+{
+	"name": "ds_ready_stocks",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ready_stocks",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "13_Dec.csv",
+				"fileSystem": "stocks"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

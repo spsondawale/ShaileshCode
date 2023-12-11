@@ -1,0 +1,218 @@
+{
+	"name": "pl_stocks_copy",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_ready_stocks",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Stock Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Stock_Name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Symbol",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Symbol",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Exch",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Exch",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Sector Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Sector_Name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Industry Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Industry_Name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Slow Stochastic %K",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Slow_Stochastic_per_K",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Prev. Slow Stochastic %K",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Prev_Slow_Stochastic_per_K",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Slow Stochastic %D",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Slow_Stochastic_per_D",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Prev. Slow Stochastic %D",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Prev_Slow_Stochastic_D",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Chg in %K",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Chg_in_per_K",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Close",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Close",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Chg %",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Chg_Per",
+									"type": "Double",
+									"physicalType": "float"
+								}
+							},
+							{
+								"source": {
+									"name": "Symbol with Comma for External Upload",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Symbol_with_Upload",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ready_stocks",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_ready_stocks_db",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

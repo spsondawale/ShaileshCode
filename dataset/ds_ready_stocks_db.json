@@ -1,0 +1,16 @@
+{
+	"name": "ds_ready_stocks_db",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_ready_stocks_db",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ready_stocks"
+		}
+	}
+}
