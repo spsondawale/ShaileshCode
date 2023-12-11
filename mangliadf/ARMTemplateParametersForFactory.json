@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "mangliadf"
+		},
+		"ls_copy_file_accountKey": {
+			"value": ""
+		},
+		"ls_databricks_accessToken": {
+			"value": ""
+		},
+		"ls_file_copy_connectionString": {
+			"value": ""
+		},
+		"ls_file_copy_adls_accountKey": {
+			"value": ""
+		},
+		"ls_copy_file_properties_typeProperties_url": {
+			"value": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "0904-121411-b30w5hp3"
+		},
+		"ls_file_copy_adls_properties_typeProperties_url": {
+			"value": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_new_link_properties_typeProperties_existingClusterId": {
+			"value": "1005-030659-ivpdva9o"
+		}
+	}
+}
