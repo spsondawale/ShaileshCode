@@ -1,0 +1,48 @@
+{
+	"name": "pl_if_condition",
+	"properties": {
+		"activities": [
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(pipeline().parameters.Val,'pun')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "donotwatforme",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Waitforme",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"Val": {
+				"type": "string",
+				"defaultValue": "['shailesh','sondawale']"
+			}
+		},
+		"annotations": []
+	}
+}
