@@ -1,0 +1,150 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_source_file_emp",
+						"type": "DatasetReference"
+					},
+					"name": "SourceFileEmp"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_database_type2",
+						"type": "DatasetReference"
+					},
+					"name": "TargetTableEMPType2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_type2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_database_type2",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "IsActive"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as integer,",
+				"          ename as string,",
+				"          dept as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SourceFileEmp",
+				"source(output(",
+				"          surrkey as integer,",
+				"          empno as integer,",
+				"          ename as string,",
+				"          deptname as string,",
+				"          IsActive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> TargetTableEMPType2",
+				"SourceFileEmp derive(IsActive = 1) ~> IsActive",
+				"TargetTableEMPType2 select(mapColumn(",
+				"          SQL_surrkey = surrkey,",
+				"          SQL_empno = empno,",
+				"          SQL_ename = ename,",
+				"          SQL_deptname = deptname,",
+				"          SQL_IsActive = IsActive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"SourceFileEmp, select1 lookup(empid == SQL_empno,",
+				"     multiple: true,",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 filter(!isNull(SQL_empno)) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          SQL_surrkey,",
+				"          SQL_empno,",
+				"          SQL_ename,",
+				"          SQL_deptname,",
+				"          SQL_IsActive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 derive(SQL_IsActive = 0) ~> derivedColumn1",
+				"derivedColumn1 alterRow(updateIf(1==1)) ~> alterRow1",
+				"IsActive sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          surrkey as integer,",
+				"          empno as integer,",
+				"          ename as string,",
+				"          deptname as string,",
+				"          IsActive as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          empno = empid,",
+				"          ename,",
+				"          deptname = dept,",
+				"          IsActive",
+				"     )) ~> sink1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['surrkey'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          surrkey = SQL_surrkey,",
+				"          empno = SQL_empno,",
+				"          ename = SQL_ename,",
+				"          deptname = SQL_deptname,",
+				"          IsActive = SQL_IsActive",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}
