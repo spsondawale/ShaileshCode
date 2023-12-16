@@ -1,5 +1,5 @@
 {
-	"name": "pl_delete",
+	"name": "pl_incre_copyfiles",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText1",
+						"referenceName": "ds_source",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -24,8 +24,12 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"modifiedDatetimeStart": {
+							"value": "@adddays(utcnow(),-2)",
+							"type": "Expression"
+						},
 						"modifiedDatetimeEnd": {
-							"value": "@adddays(utcnow(),-3)",
+							"value": "@utcnow()",
 							"type": "Expression"
 						},
 						"enablePartitionDiscovery": false
@@ -55,8 +59,8 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Delete1",
-							"type": "Delete",
+							"name": "Copy data1",
+							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
 								"timeout": "0.12:00:00",
@@ -67,23 +71,62 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataset": {
-									"referenceName": "ds_delete",
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_copy_files1",
 									"type": "DatasetReference",
 									"parameters": {
-										"FileName": {
+										"Filename": {
 											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
-								},
-								"enableLogging": false,
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
 								}
-							}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_sink1",
+									"type": "DatasetReference",
+									"parameters": {
+										"Sink_file_name": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
 					]
 				}
