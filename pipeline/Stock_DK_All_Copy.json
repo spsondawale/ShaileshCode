@@ -99,19 +99,19 @@
 							"inputs": [
 								{
 									"referenceName": "ds_stock_copy",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"Filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "ds_copy_stocks",
-									"type": "DatasetReference",
-									"parameters": {
-										"": {
-											"value": "@item().name",
-											"type": "Expression"
-										}
-									}
+									"type": "DatasetReference"
 								}
 							]
 						}
