@@ -19,7 +19,9 @@
 						"referenceName": "ds_stocks",
 						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"enablePartitionDiscovery": false
@@ -103,7 +105,13 @@
 							"outputs": [
 								{
 									"referenceName": "ds_copy_stocks",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
