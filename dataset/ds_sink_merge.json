@@ -1,0 +1,88 @@
+{
+	"name": "ds_sink_merge",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adlsgen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Merge_files.csv",
+				"fileSystem": "output"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Stock Name",
+				"type": "String"
+			},
+			{
+				"name": "Symbol",
+				"type": "String"
+			},
+			{
+				"name": "Exch",
+				"type": "String"
+			},
+			{
+				"name": "Sector Name",
+				"type": "String"
+			},
+			{
+				"name": "Industry Name",
+				"type": "String"
+			},
+			{
+				"name": "Slow Stochastic %K",
+				"type": "String"
+			},
+			{
+				"name": "Prev. Slow Stochastic %K",
+				"type": "String"
+			},
+			{
+				"name": "Slow Stochastic %D",
+				"type": "String"
+			},
+			{
+				"name": "Prev. Slow Stochastic %D",
+				"type": "String"
+			},
+			{
+				"name": "Chg in %K",
+				"type": "String"
+			},
+			{
+				"name": "Close",
+				"type": "String"
+			},
+			{
+				"name": "Chg %",
+				"type": "String"
+			},
+			{
+				"name": "Symbol with Comma for External Upload",
+				"type": "String"
+			},
+			{
+				"name": "FilePath",
+				"type": "String"
+			},
+			{
+				"name": "pipelinename",
+				"type": "String"
+			},
+			{
+				"name": "dupe_col",
+				"type": "String"
+			}
+		]
+	}
+}
