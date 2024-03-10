@@ -1,0 +1,12 @@
+{
+	"name": "ls_vinay",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://mangliadls.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDFEOTUwQkUwLUQ2REUtNDE0MS05QUEzLTlBMTFBNzQ5RkZDMl9mMzQwM2QyNy1iOWIxLTQyNzAtYWIzNS1jZmE1MDE0N2I1ZDkiDQp9"
+		}
+	}
+}
