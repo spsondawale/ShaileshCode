@@ -195,7 +195,7 @@
 				]
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "update table procedure",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -212,7 +212,30 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_highwatermark]",
+					"storedProcedureParameters": {
+						"NewTime": {
+							"value": {
+								"value": "@activity('Source Table').output.firstRow.Last_M",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"table_name": {
+							"value": {
+								"value": "@activity('control table').output.firstRow.tablename",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sql_database",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
