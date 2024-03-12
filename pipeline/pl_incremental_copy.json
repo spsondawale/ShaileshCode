@@ -82,7 +82,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from dbo.orders_demo where insertdatetime > '@{activity('control table').output.firstRow.watermarkvalue}' \nand insertdatetime <= '@{activity('Source Table').output.firstRow.Last_M}'",
+							"value": "select * from dbo.orders where insertdatetime > '@{activity('control table').output.firstRow.watermarkvalue}' \nand insertdatetime <= '@{activity('Source Table').output.firstRow.Last_M}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
