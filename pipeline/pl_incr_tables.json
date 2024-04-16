@@ -81,7 +81,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from dbo.orders_demo where insertdatetime>'@{activity('control_table').output.firstRow.watermarkvalue}' and \ninsertdatetime<='@{activity('Source_Table').output.firstRow.Last_M}'\n",
+							"value": "select * from dbo.orders where insertdatetime > '@{activity('control_table').output.firstRow.watermarkvalue}' and \ninsertdatetime <= '@{activity('Source_Table').output.firstRow.Last_M}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -95,6 +95,84 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "orderid",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "orderid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "productid",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "productid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "customerid",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "customerid",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "unitprice",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 10
+								},
+								"sink": {
+									"name": "unitprice",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "Quantity",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "Quantity",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "insertdatetime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "insertdatetime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -139,7 +217,7 @@
 					"storedProcedureParameters": {
 						"NewTime": {
 							"value": {
-								"value": "@activity('control_table').output.firstRow.watermarkvalue",
+								"value": "@activity('Source_Table').output.firstRow.Last_M",
 								"type": "Expression"
 							},
 							"type": "DateTime"
