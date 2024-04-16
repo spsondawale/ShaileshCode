@@ -1,24 +1,25 @@
 {
-	"name": "ds_copy_tables_sink",
+	"name": "ds_configuration_table",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_connect_db",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"tablename": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "tblname",
+				"type": "varchar"
+			},
+			{
+				"name": "watermarkcolumn",
+				"type": "varchar"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": {
-				"value": "@dataset().tablename",
-				"type": "Expression"
-			}
+			"table": "configuration"
 		}
 	}
 }
