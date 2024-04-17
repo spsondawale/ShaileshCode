@@ -5,6 +5,12 @@
 		"factoryName": {
 			"value": "mangliadf"
 		},
+		"ls_adls_sink_accountKey": {
+			"value": ""
+		},
+		"ls_connect_db_connectionString": {
+			"value": ""
+		},
 		"ls_copy_file_accountKey": {
 			"value": ""
 		},
@@ -17,6 +23,9 @@
 		"ls_file_copy_adls_accountKey": {
 			"value": ""
 		},
+		"ls_adls_sink_properties_typeProperties_url": {
+			"value": "https://mangliadls.dfs.core.windows.net/"
+		},
 		"ls_copy_file_properties_typeProperties_url": {
 			"value": "https://mangliretail.dfs.core.windows.net/"
 		},
@@ -25,6 +34,9 @@
 		},
 		"ls_file_copy_adls_properties_typeProperties_url": {
 			"value": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_https_properties_typeProperties_url": {
+			"value": "https://web.stockedge.com"
 		},
 		"ls_new_link_properties_typeProperties_existingClusterId": {
 			"value": "1005-030659-ivpdva9o"

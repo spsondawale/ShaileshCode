@@ -7,6 +7,14 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "mangliadf"
 		},
+		"ls_adls_sink_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_adls_sink'"
+		},
+		"ls_connect_db_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_connect_db'"
+		},
 		"ls_copy_file_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_copy_file'"
@@ -23,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ls_file_copy_adls'"
 		},
+		"ls_adls_sink_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://mangliadls.dfs.core.windows.net/"
+		},
 		"ls_copy_file_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mangliretail.dfs.core.windows.net/"
@@ -34,6 +46,10 @@
 		"ls_file_copy_adls_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://mangliretail.dfs.core.windows.net/"
+		},
+		"ls_https_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://web.stockedge.com"
 		},
 		"ls_new_link_properties_typeProperties_existingClusterId": {
 			"type": "string",
@@ -66,6 +82,12 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ls_adls_sink_accountKey": {
+						"value": "[parameters('ls_adls_sink_accountKey')]"
+					},
+					"ls_connect_db_connectionString": {
+						"value": "[parameters('ls_connect_db_connectionString')]"
+					},
 					"ls_copy_file_accountKey": {
 						"value": "[parameters('ls_copy_file_accountKey')]"
 					},
@@ -78,6 +100,9 @@
 					"ls_file_copy_adls_accountKey": {
 						"value": "[parameters('ls_file_copy_adls_accountKey')]"
 					},
+					"ls_adls_sink_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_sink_properties_typeProperties_url')]"
+					},
 					"ls_copy_file_properties_typeProperties_url": {
 						"value": "[parameters('ls_copy_file_properties_typeProperties_url')]"
 					},
@@ -86,6 +111,9 @@
 					},
 					"ls_file_copy_adls_properties_typeProperties_url": {
 						"value": "[parameters('ls_file_copy_adls_properties_typeProperties_url')]"
+					},
+					"ls_https_properties_typeProperties_url": {
+						"value": "[parameters('ls_https_properties_typeProperties_url')]"
 					},
 					"ls_new_link_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('ls_new_link_properties_typeProperties_existingClusterId')]"
