@@ -1,0 +1,25 @@
+{
+	"name": "ds_configuration_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_connect_db",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "tblname",
+				"type": "varchar"
+			},
+			{
+				"name": "watermarkcolumn",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "configuration"
+		}
+	}
+}

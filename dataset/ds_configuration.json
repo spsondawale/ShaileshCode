@@ -1,0 +1,33 @@
+{
+	"name": "ds_configuration",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_connect_db",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "tblname",
+				"type": "varchar"
+			},
+			{
+				"name": "LastModified",
+				"type": "varchar"
+			},
+			{
+				"name": "Controltable",
+				"type": "varchar"
+			},
+			{
+				"name": "LastLoadDate",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "configuration"
+		}
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"name": "ds_copy_tables_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_connect_db",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tablename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().tablename",
+				"type": "Expression"
+			}
+		}
+	}
+}
