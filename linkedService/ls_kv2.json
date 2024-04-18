@@ -1,0 +1,10 @@
+{
+	"name": "ls_kv2",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://databrickskeyvault123.vault.azure.net/"
+		}
+	}
+}
