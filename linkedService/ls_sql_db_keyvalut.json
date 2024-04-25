@@ -1,0 +1,19 @@
+{
+	"name": "ls_sql_db_keyvalut",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=mangliserver.database.windows.net;Initial Catalog=manglidb;User ID=shailesh",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ls_kv_sql_db",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "DBLogin",
+				"secretVersion": "c66aa8ab0b2f4949b27a178fab59bff4"
+			}
+		}
+	}
+}
