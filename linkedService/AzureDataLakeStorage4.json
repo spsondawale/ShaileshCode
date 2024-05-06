@@ -1,0 +1,21 @@
+{
+	"name": "AzureDataLakeStorage4",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://mangliadls.dfs.core.windows.net/",
+			"tenant": "5186f2b9-1c44-4ed0-b206-a41f932f9776",
+			"servicePrincipalId": "2c63b9d9-6716-4de7-87bd-5620862af323",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"servicePrincipalCredential": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyVault6",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Datalakekeyvaultmay2024-pwd"
+			}
+		}
+	}
+}
